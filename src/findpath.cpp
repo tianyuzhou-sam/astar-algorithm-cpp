@@ -74,26 +74,14 @@ int main( int argc, char *argv[] )
 	Map.map_width = map_width;
 	Map.map_height = map_height;
 
+    std::vector<int> start = {0, 0}; // Create a start state
+    std::vector<int> end = {14, 10}; // Define the goal state
 
 	while(SearchCount < NumSearches)
 	{
-
-		// Create a start state
-		// int start_x = rand()%map_width;
-		// int start_y = rand()%map_height;
-
-		int start_x = 0;
-		int start_y = 0;
 		// MapSearchNode nodeStart;
-		MapSearchNode nodeStart = MapSearchNode(start_x, start_y, Map);
-
-		// Define the goal state
-		// int end_x = rand()%map_width;
-		// int end_y = rand()%map_height;
-
-		int end_x = 14;
-		int end_y = 10;
-		MapSearchNode nodeEnd(end_x, end_y, Map);
+		MapSearchNode nodeStart = MapSearchNode(start[0], start[1], Map);
+		MapSearchNode nodeEnd(end[0], end[1], Map);
 
 		// Set Start and goal states
 		astarsearch.SetStartAndGoalStates( nodeStart, nodeEnd );

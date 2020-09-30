@@ -21,7 +21,7 @@ include_directories(
 
 file(GLOB HEADER_FILES include/*.h)
 #add_executable(${PROJECT_NAME} ${SRCFILES})
-add_executable(findpath src/findpath.cpp ${HEADER_FILES})
+add_executable(main src/findpath.cpp ${HEADER_FILES})
 
 # add_executable(minpathbucharest ${CMAKE_SOURCE_DIR}/src/min_path_to_Bucharest.cpp)
 # add_executable(8puzzle ${CMAKE_SOURCE_DIR}/src/8puzzle.cpp)

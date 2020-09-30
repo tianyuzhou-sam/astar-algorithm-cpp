@@ -25,7 +25,7 @@ public:
     struct MapInfo map;
 	
 	MapSearchNode() { x = 0; y = 0; }
-	MapSearchNode(int px, int py, MapInfo map_input) {
+	MapSearchNode(int px, int py, const MapInfo &map_input) {
         x = px;
         y = py;
         map = map_input;
