@@ -10,6 +10,7 @@
 
 
 #include <iostream>
+#include <vector>
 #include <stdio.h>
 #include <math.h>
 #include "stlastar.h"
@@ -20,7 +21,7 @@
 #define DEBUG_LIST_LENGTHS_ONLY 0
 
 
-unsigned int find_path(std::vector<int> start, std::vector<int> end, MapInfo Map)
+std::vector<int> find_path(std::vector<int> start, std::vector<int> end, MapInfo Map)
 {
 
 	// std::cout << "STL A* Search implementation\n(C)2001 Justin Heyes-Jones\n";
@@ -38,6 +39,8 @@ unsigned int find_path(std::vector<int> start, std::vector<int> end, MapInfo Map
 	unsigned int SearchCount = 0;
 
 	const unsigned int NumSearches = 1;
+
+	std::vector<int> path_result;
 
 	while(SearchCount < NumSearches)
 	{
@@ -92,49 +95,51 @@ unsigned int find_path(std::vector<int> start, std::vector<int> end, MapInfo Map
 			std::cout << "Closed list has " << len << " nodes\n";
 	#endif
 
-
-            std::cout << "checkpoint2" << std::endl;
 		}
 		while( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_SEARCHING );
 
 		if( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_SUCCEEDED )
 		{
-			std::cout << "Search found goal state\n";
-
-				MapSearchNode *node = astarsearch.GetSolutionStart();
+			// std::cout << "Search found goal state\n";
+			MapSearchNode *node = astarsearch.GetSolutionStart();
 
 	#if DISPLAY_SOLUTION
-				std::cout << "Displaying solution\n";
+			std::cout << "Displaying solution\n";
 	#endif
 
-				int steps = 0;
+			int steps = 0;
+
+			node->PrintNodeInfo();
+			path_result.push_back(node->x);
+			path_result.push_back(node->y);
+
+			for( ;; )
+			{
+				node = astarsearch.GetSolutionNext();
+
+				if( !node )
+				{
+					break;
+				}
 
 				node->PrintNodeInfo();
-				for( ;; )
-				{
-					node = astarsearch.GetSolutionNext();
+				path_result.push_back(node->x);
+				path_result.push_back(node->y);
 
-					if( !node )
-					{
-						break;
-					}
-
-					node->PrintNodeInfo();
-					steps ++;
+				steps ++;
 				
-				};
+			};
 
-				std::cout << "Solution steps " << steps << endl;
+			std::cout << "Solution steps " << steps << endl;
 
-				// Once you're done with the solution you can free the nodes up
-				astarsearch.FreeSolutionNodes();
+			// Once you're done with the solution you can free the nodes up
+			astarsearch.FreeSolutionNodes();
 
 	
 		}
 		else if( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_FAILED ) 
 		{
 			std::cout << "Search terminated. Did not find goal state\n";
-		
 		}
 
 		// Display the number of loops the search went through
@@ -146,6 +151,6 @@ unsigned int find_path(std::vector<int> start, std::vector<int> end, MapInfo Map
 
 	}
 
-    return SearchCount;
+	return path_result;
 
 }

@@ -19,7 +19,7 @@
 
 
 // Main
-int main( int argc, char *argv[] )
+int main()
 {
 	std::vector<int> world_map = 
 	{
@@ -56,12 +56,12 @@ int main( int argc, char *argv[] )
     std::vector<int> start = {0, 0}; // Create a start state
     std::vector<int> end = {14, 10}; // Define the goal state
 
-    std::cout << "checkpoint1" << std::endl;
+    std::vector<int> path_result = find_path(start, end, Map);
 
-    unsigned int result = find_path(start, end, Map);
+    std::cout << "This is the path:" << std::endl;
 
-    std::cout << "checkpoint3" << std::endl;
-    std::cout << result << std::endl;
-	
+	for(long unsigned int i=0; i<path_result.size(); i=i+2)
+  		std::cout << path_result[i] << "," << path_result[i+1] << std::endl;
+
 	return 0;
 }
