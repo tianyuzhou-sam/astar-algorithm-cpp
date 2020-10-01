@@ -12,6 +12,10 @@ set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# For python binding
+find_package(pybind11 REQUIRED)
 
 # include header directories
 include_directories(
@@ -21,5 +25,8 @@ include_directories(
 file(GLOB HEADER_FILES include/*.h)
 
 # add the main file as executable
-# add_executable(test src/findpath_main.cpp ${HEADER_FILES})
+# add_executable(test test/test_findpath.cpp ${HEADER_FILES})
 add_executable(main src/main.cpp src/find_path.cpp ${HEADER_FILES})
+
+# Build c++ library such that python can call it
+pybind11_add_module(AStarPython src/AStarPython.cpp)

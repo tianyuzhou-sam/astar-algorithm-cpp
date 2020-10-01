@@ -1,27 +1,48 @@
 astar-algorithm-cpp
 ===================
 
-This is a customized version of [astar-algorithm-cpp](https://github.com/justinhj/astar-algorithm-cpp). Given a map and a set of starts and goals, this algorithm can return an optimal path. I will be working on the Python wrapper and exploring the possibilities of application on multi-agent systems by CUDA parallel computing.
+This is a customized version of [astar-algorithm-cpp](https://github.com/justinhj/astar-algorithm-cpp). Given a map and a set of starts and goals, this algorithm can return an optimal path. This repo has very easy-to-build-and-use **C++** implementation and **Python** wrapper. I will be exploring the possibilities of application on multi-agent systems by CUDA parallel computing.
 
-The following contents starting from **Summary** have been revised such that they fit this forked repo. I really appreciate all the contributors' effort such that I can use this c++ implement of A* algorithm!
+The following contents starting from **Summary** have been revised such that they fit this forked repo. I really appreciate all the contributors' effort such that I can use this C++ implement of A* algorithm!
 
 Zehui
 
 This repo has been tested with:
 * GCC 9.3.0, CMake 3.16.3, Ubuntu 20.04.1 LTS
 
-Compilation
-===========
+Dependencies
+============
+For Python:
+* [pybind11](https://github.com/pybind/pybind11)
+
+
+Build
+=====
 ```
+$ pip3 install pybind11
 $ git clone https://github.com/zehuilu/astar-algorithm-cpp.git
 $ cd <MAIN_DIRECTORY>
 $ mkdir build
 $ cd build
 $ cmake ..
 $ make
-$ ./main
 ```
 
+
+Usage
+=====
+
+For C++, the main function is `src/main.cpp`.
+```
+$ cd <MAIN_DIRECTORY>
+$ build/main
+```
+
+For Python, the main function is `test/test_AStarPython.py`.
+```
+$ cd <MAIN_DIRECTORY>
+$ python3 test/test_AStarPython.py
+```
 
 ==============================================================================================================================
 

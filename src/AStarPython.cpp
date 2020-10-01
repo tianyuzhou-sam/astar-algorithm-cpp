@@ -16,15 +16,16 @@
 #include "stlastar.h"
 #include "MapSearchNode.h"
 #include "MapInfo.h"
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 
-#define DEBUG_LISTS 0
-#define DEBUG_LIST_LENGTHS_ONLY 0
 
-
-std::vector<int> find_path(
-	std::vector<int> start,
-	std::vector<int> end,
-	const MapInfo &Map)
+std::vector<int> FindPath(
+    std::vector<int> start,
+    std::vector<int> end,
+    std::vector<int> &world_map,
+    int &map_width,
+    int &map_height)
 {
 
 	// std::cout << "STL A* Search implementation\n(C)2001 Justin Heyes-Jones\n";
@@ -37,10 +38,14 @@ std::vector<int> find_path(
 
 	// Create an instance of the search class...
 
+	struct MapInfo Map;
+	Map.world_map = world_map;
+	Map.map_width = map_width;
+	Map.map_height = map_height;
+
 	AStarSearch<MapSearchNode> astarsearch;
 
 	unsigned int SearchCount = 0;
-
 	const unsigned int NumSearches = 1;
 
 	std::vector<int> path_result;
@@ -61,43 +66,6 @@ std::vector<int> find_path(
 		{
 			SearchState = astarsearch.SearchStep();
 			SearchSteps++;
-
-	#if DEBUG_LISTS
-
-			std::cout << "Steps:" << SearchSteps << "\n";
-
-			int len = 0;
-
-			std::cout << "Open:\n";
-			MapSearchNode *p = astarsearch.GetOpenListStart();
-			while( p )
-			{
-				len++;
-	#if !DEBUG_LIST_LENGTHS_ONLY			
-				((MapSearchNode *)p)->PrintNodeInfo();
-	#endif
-				p = astarsearch.GetOpenListNext();
-				
-			}
-
-			std::cout << "Open list has " << len << " nodes\n";
-
-			len = 0;
-
-			std::cout << "Closed:\n";
-			p = astarsearch.GetClosedListStart();
-			while( p )
-			{
-				len++;
-	#if !DEBUG_LIST_LENGTHS_ONLY			
-				p->PrintNodeInfo();
-	#endif			
-				p = astarsearch.GetClosedListNext();
-			}
-
-			std::cout << "Closed list has " << len << " nodes\n";
-	#endif
-
 		}
 		while( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_SEARCHING );
 
@@ -105,14 +73,9 @@ std::vector<int> find_path(
 		{
 			// std::cout << "Search found goal state\n";
 			MapSearchNode *node = astarsearch.GetSolutionStart();
-
-	#if DISPLAY_SOLUTION
-			std::cout << "Displaying solution\n";
-	#endif
-
 			int steps = 0;
 
-			node->PrintNodeInfo();
+			// node->PrintNodeInfo();
 			path_result.push_back(node->x);
 			path_result.push_back(node->y);
 
@@ -125,7 +88,7 @@ std::vector<int> find_path(
 					break;
 				}
 
-				node->PrintNodeInfo();
+				// node->PrintNodeInfo();
 				path_result.push_back(node->x);
 				path_result.push_back(node->y);
 
@@ -133,12 +96,11 @@ std::vector<int> find_path(
 				
 			};
 
-			std::cout << "Solution steps " << steps << endl;
+			// std::cout << "Solution steps " << steps << endl;
 
 			// Once you're done with the solution you can free the nodes up
 			astarsearch.FreeSolutionNodes();
-
-	
+			
 		}
 		else if( SearchState == AStarSearch<MapSearchNode>::SEARCH_STATE_FAILED ) 
 		{
@@ -146,7 +108,7 @@ std::vector<int> find_path(
 		}
 
 		// Display the number of loops the search went through
-		std::cout << "SearchSteps : " << SearchSteps << "\n";
+		// std::cout << "SearchSteps : " << SearchSteps << "\n";
 
 		SearchCount ++;
 
@@ -156,4 +118,11 @@ std::vector<int> find_path(
 
 	return path_result;
 
+}
+
+
+PYBIND11_MODULE(AStarPython, module) {
+    module.doc() = "Python wrapper of AStar c++ implementation";
+
+    module.def("FindPath", &FindPath, "Find a collision-free path");
 }
