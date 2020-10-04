@@ -56,12 +56,15 @@ int main()
     std::vector<int> start = {0, 0}; // Create a start state
     std::vector<int> end = {14, 10}; // Define the goal state
 
-    std::vector<int> path_result = find_path(start, end, Map);
+    auto [path_full, path_short] = find_path(start, end, Map);
 
-    std::cout << "This is the path:" << std::endl;
+    std::cout << "This is the full path:" << std::endl;
+	for(long unsigned int i=0; i<path_full.size(); i=i+2)
+  		std::cout << path_full[i] << "," << path_full[i+1] << std::endl;
 
-	for(long unsigned int i=0; i<path_result.size(); i=i+2)
-  		std::cout << path_result[i] << "," << path_result[i+1] << std::endl;
+	std::cout << "This is the short path:" << std::endl;
+	for(long unsigned int i=0; i<path_short.size(); i=i+2)
+  		std::cout << path_short[i] << "," << path_short[i+1] << std::endl;
 
 	return 0;
 }

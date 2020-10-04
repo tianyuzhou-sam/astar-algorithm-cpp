@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <tuple>
 #include <stdio.h>
 #include <math.h>
 #include "stlastar.h"
@@ -21,7 +22,7 @@
 #define DEBUG_LIST_LENGTHS_ONLY 0
 
 
-std::vector<int> find_path(
+std::tuple<std::vector<int>, std::vector<int>> find_path(
 	std::vector<int> start,
 	std::vector<int> end,
 	const MapInfo &Map)
@@ -43,7 +44,12 @@ std::vector<int> find_path(
 
 	const unsigned int NumSearches = 1;
 
-	std::vector<int> path_result;
+	// full path
+	std::vector<int> path_full;
+	// a short path only contains path corners
+	std::vector<int> path_short;
+	// 2D vector, the first entry is the full path; the second entry is the short path.
+	// std::vector<std::vector<int>> result;
 
 	while(SearchCount < NumSearches)
 	{
@@ -112,26 +118,46 @@ std::vector<int> find_path(
 
 			int steps = 0;
 
-			node->PrintNodeInfo();
-			path_result.push_back(node->x);
-			path_result.push_back(node->y);
+			// node->PrintNodeInfo();
+			path_full.push_back(node->x);
+			path_full.push_back(node->y);
+			path_short.push_back(node->x);
+			path_short.push_back(node->y);
 
-			for( ;; )
+			while (true)
 			{
 				node = astarsearch.GetSolutionNext();
 
-				if( !node )
+				if ( !node )
 				{
 					break;
 				}
 
-				node->PrintNodeInfo();
-				path_result.push_back(node->x);
-				path_result.push_back(node->y);
+				// node->PrintNodeInfo();
+				path_full.push_back(node->x);
+				path_full.push_back(node->y);
 
 				steps ++;
+
+				/*
+				Let's say there are 3 steps, x0, x1, x2. To verify whether x1 is a corner for the path.
+				If the coordinates of x0 and x1 at least have 1 component same, and the coordinates of 
+				x0 and x2 don't have any components same, then x1 is a corner.
+				If the path only contains 3 steps or less, path_full = path_short.
+				*/
+
+				if (((path_full[2*steps-4]==path_full[2*steps-2]) || (path_full[2*steps-3]==path_full[2*steps-1])) && 
+					((path_full[2*steps-4]!=node->x) && (path_full[2*steps-3]!=node->y)) && (steps>2))
+				{
+					path_short.push_back(path_full[2*steps-2]);
+					path_short.push_back(path_full[2*steps-1]);
+				}
 				
-			};
+			}
+
+			// This works for both steps>2 and steps <=2
+			path_short.push_back(path_full[path_full.size()-2]);
+			path_short.push_back(path_full[path_full.size()-1]);
 
 			std::cout << "Solution steps " << steps << endl;
 
@@ -146,7 +172,7 @@ std::vector<int> find_path(
 		}
 
 		// Display the number of loops the search went through
-		std::cout << "SearchSteps : " << SearchSteps << "\n";
+		// std::cout << "SearchSteps : " << SearchSteps << "\n";
 
 		SearchCount ++;
 
@@ -154,6 +180,6 @@ std::vector<int> find_path(
 
 	}
 
-	return path_result;
+	return {path_full, path_short};
 
 }
