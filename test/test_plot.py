@@ -32,18 +32,18 @@ if __name__ == "__main__":
 	world_map = Simulator.map_array.flatten().tolist()
 	# solve it
 	t0 = time.time()
-	path_full, path_short = AStarPython.FindPath(start, end, world_map, Simulator.map_width, Simulator.map_height)
+	path_short = AStarPython.FindPath(start, end, world_map, Simulator.map_width, Simulator.map_height)
 	t1 = time.time()
 
-	num_steps = len(path_full)/2 - 1
+	num_steps = len(path_short)/2 - 1
 	print(num_steps)
 
 	print("Time used is [sec]")
 	print(t1-t0)
 
 	# visualization
-	if len(path_full) > 0:
-		Simulator.visualize(path_full, path_short)
+	if len(path_short) > 0:
+		Simulator.visualize(path_short)
 	else:
 		print("A Star didn't find a path!")
 
