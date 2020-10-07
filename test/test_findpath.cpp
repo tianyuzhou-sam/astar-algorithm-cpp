@@ -22,7 +22,7 @@
 
 
 // Main
-int main( int argc, char *argv[] )
+int main()
 {
 
 	// std::cout << "STL A* Search implementation\n(C)2001 Justin Heyes-Jones\n";

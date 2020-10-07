@@ -21,20 +21,17 @@
 #include <pybind11/stl.h>
 
 
+
+
+
+
+
 std::vector<int> FindPath(
     std::vector<int> start,
     std::vector<int> end,
     std::vector<int> &world_map,
     int &map_width,
     int &map_height);
-
-
-// std::tuple<std::vector<int>, std::vector<int>> FindPathFull(
-//     std::vector<int> start,
-//     std::vector<int> end,
-//     std::vector<int> &world_map,
-//     int &map_width,
-//     int &map_height);
 
 
 std::vector<int> FindPath(
