@@ -21,16 +21,8 @@
 
 
 inline std::vector<int> FindPath(
-    std::vector<int> start,
-    std::vector<int> end,
-    std::vector<int> &world_map,
-    int &map_width,
-    int &map_height);
-
-
-inline std::vector<int> FindPath(
-    std::vector<int> start,
-    std::vector<int> end,
+	std::vector<int> &start,
+	std::vector<int> &end,
     std::vector<int> &world_map,
     int &map_width,
     int &map_height)

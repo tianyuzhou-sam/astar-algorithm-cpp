@@ -50,8 +50,8 @@ int main()
 	Map.map_width = map_width;
 	Map.map_height = map_height;
 
-    std::vector<int> start = {0, 0}; // Create a start state
-    std::vector<int> end = {14, 10}; // Define the goal state
+    int start[2] = {0, 0}; // Create a start state
+    int end[2] = {18, 14}; // Define the goal state
 
     std::vector<int> path_short = find_path(start, end, Map);
 

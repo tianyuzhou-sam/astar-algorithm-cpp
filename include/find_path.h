@@ -23,8 +23,8 @@
 
 
 inline std::vector<int> find_path(
-	std::vector<int> start,
-	std::vector<int> end,
+	int *start,
+	int *end,
 	const MapInfo &Map)
 {
 

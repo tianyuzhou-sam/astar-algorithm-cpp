@@ -19,7 +19,7 @@
 
 
 inline std::vector<std::vector<int>> find_path_all(
-	std::vector<int> agent_position,
+	int *agent_position,
 	std::vector<int> targets_position,
 	const MapInfo &Map)
 {
@@ -38,29 +38,41 @@ inline std::vector<std::vector<int>> find_path_all(
         int start_idx = start_goal_pair[idx];
         int goal_idx = start_goal_pair[idx+1];
 
-        std::vector<int> start;
-        std::vector<int> goal;
+        // std::vector<int> start;
+        // std::vector<int> goal;
+
+        int start[2];
+        int goal[2];
 
         if (start_idx != 0)
         {
-            start.push_back(targets_position[2*(start_idx-1)]);
-            start.push_back(targets_position[2*(start_idx-1)+1]);
+            // start.push_back(targets_position[2*(start_idx-1)]);
+            // start.push_back(targets_position[2*(start_idx-1)+1]);
+            start[0] = targets_position[2*(start_idx-1)];
+            start[1] = targets_position[2*(start_idx-1)+1];
         }
         else
         {
-            start.push_back(agent_position[0]);
-            start.push_back(agent_position[1]);
+            // start.push_back(agent_position[0]);
+            // start.push_back(agent_position[1]);
+            start[0] = agent_position[0];
+            start[1] = agent_position[1];
         }
 
         if (goal_idx != 0)
         {
-            goal.push_back(targets_position[2*(goal_idx-1)]);
-            goal.push_back(targets_position[2*(goal_idx-1)+1]);
+            // goal.push_back(targets_position[2*(goal_idx-1)]);
+            // goal.push_back(targets_position[2*(goal_idx-1)+1]);
+            goal[0] = targets_position[2*(goal_idx-1)];
+            goal[1] = targets_position[2*(goal_idx-1)+1];
+
         }
         else
         {
-            goal.push_back(agent_position[0]);
-            goal.push_back(agent_position[1]);
+            // goal.push_back(agent_position[0]);
+            // goal.push_back(agent_position[1]);
+            goal[0] = agent_position[0];
+            goal[1] = agent_position[1];
         }
         std::vector<int> path_short_single = find_path(start, goal, Map);
 
@@ -74,8 +86,8 @@ inline std::vector<std::vector<int>> find_path_all(
 
         path_all.push_back(path_short_single);
 
-        start.clear();
-        goal.clear();
+        // start.clear();
+        // goal.clear();
     }
 
     return path_all;

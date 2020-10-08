@@ -51,7 +51,7 @@ int main()
 	Map.map_width = map_width;
 	Map.map_height = map_height;
 
-    std::vector<int> agent_position{0, 0}; // Define the position for the agent
+    int agent_position[2] = {0, 0}; // Define the position for the agent
     std::vector<int> targets_position{0,19, 19,19, 19,0}; // Define a set of targets positions [x0,y0, x1,y1, x2,y2]
 
     std::vector<std::vector<int>> path_all = find_path_all(agent_position, targets_position, Map);
