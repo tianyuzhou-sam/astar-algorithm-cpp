@@ -7,7 +7,8 @@
 // This shows how to do shortest path finding using A*
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+#ifndef FIND_PATH_H
+#define FIND_PATH_H
 
 #include <iostream>
 #include <vector>
@@ -158,7 +159,7 @@ inline std::vector<int> find_path(
 			path_short.push_back(path_full[path_full.size()-2]);
 			path_short.push_back(path_full[path_full.size()-1]);
 
-			std::cout << "Solution steps " << steps << endl;
+			// std::cout << "Solution steps " << steps << endl;
 
 			// Once you're done with the solution you can free the nodes up
 			astarsearch.FreeSolutionNodes();
@@ -180,5 +181,8 @@ inline std::vector<int> find_path(
 	}
 
 	return path_short;
-
+	// return path_full;
 }
+
+
+#endif

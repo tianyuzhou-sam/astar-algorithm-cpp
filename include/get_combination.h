@@ -2,6 +2,8 @@
 Adapted from Nikos M.'s answer on https://stackoverflow.com/questions/12991758/creating-all-possible-k-combinations-of-n-items-in-c
 Oct. 07, 2020
 */
+#ifndef GET_COMBINATION_H
+#define GET_COMBINATION_H
 
 
 #include <algorithm>
@@ -22,16 +24,13 @@ inline std::vector<int> get_combination(int N, int K)
     do {
         for (int i = 0; i < N; ++i) // [0..N-1] integers
         {
-            if (bitmask[i])
-            {
-                std::cout << " " << i;
-                result.push_back(i);
-            }
+            if (bitmask[i]) result.push_back(i);
         }
-        std::cout << std::endl;
-
         idx++;
     } while (std::prev_permutation(bitmask.begin(), bitmask.end()));
 
     return result;
 }
+
+
+#endif

@@ -16,7 +16,7 @@ int main()
 {
     auto t0 = std::chrono::high_resolution_clock::now();
 
-    std::vector<int> result = get_combination(10, 2);
+    std::vector<int> result = get_combination(4, 2);
 
     auto t1 = std::chrono::high_resolution_clock::now();
     auto time_used = std::chrono::duration_cast<std::chrono::microseconds>(t1 - t0).count();

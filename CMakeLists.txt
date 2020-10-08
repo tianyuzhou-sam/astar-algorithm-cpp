@@ -29,7 +29,8 @@ file(GLOB HEADER_FILES include/*.h)
 # test files
 add_executable(test_comb test/test_combination.cpp)
 # main file
-add_executable(main src/main.cpp ${HEADER_FILES})
+add_executable(main_single src/main_single_path.cpp ${HEADER_FILES})
+add_executable(main_many src/main_many_path.cpp ${HEADER_FILES})
 
 
 # Build c++ library such that python can call it
