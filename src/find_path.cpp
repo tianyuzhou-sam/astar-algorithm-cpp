@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include <vector>
-#include <tuple>
 #include <stdio.h>
 #include <math.h>
 #include "stlastar.h"
@@ -22,7 +21,7 @@
 #define DEBUG_LIST_LENGTHS_ONLY 0
 
 
-std::tuple<std::vector<int>, std::vector<int>> find_path(
+std::vector<int> find_path(
 	std::vector<int> start,
 	std::vector<int> end,
 	const MapInfo &Map)
@@ -180,6 +179,6 @@ std::tuple<std::vector<int>, std::vector<int>> find_path(
 
 	}
 
-	return {path_full, path_short};
+	return path_short;
 
 }

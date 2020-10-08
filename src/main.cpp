@@ -14,9 +14,6 @@
 #include "MapInfo.h"
 #include "find_path.h"
 
-#define DEBUG_LISTS 0
-#define DEBUG_LIST_LENGTHS_ONLY 0
-
 
 // Main
 int main()
@@ -56,11 +53,7 @@ int main()
     std::vector<int> start = {0, 0}; // Create a start state
     std::vector<int> end = {14, 10}; // Define the goal state
 
-    auto [path_full, path_short] = find_path(start, end, Map);
-
-    std::cout << "This is the full path:" << std::endl;
-	for(long unsigned int i=0; i<path_full.size(); i=i+2)
-  		std::cout << path_full[i] << "," << path_full[i+1] << std::endl;
+    std::vector<int> path_short = find_path(start, end, Map);
 
 	std::cout << "This is the short path:" << std::endl;
 	for(long unsigned int i=0; i<path_short.size(); i=i+2)

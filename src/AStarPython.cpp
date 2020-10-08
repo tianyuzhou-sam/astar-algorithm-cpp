@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include <vector>
-#include <tuple>
 #include <stdio.h>
 #include <math.h>
 #include "stlastar.h"
@@ -21,12 +20,7 @@
 #include <pybind11/stl.h>
 
 
-
-
-
-
-
-std::vector<int> FindPath(
+inline std::vector<int> FindPath(
     std::vector<int> start,
     std::vector<int> end,
     std::vector<int> &world_map,
@@ -34,7 +28,7 @@ std::vector<int> FindPath(
     int &map_height);
 
 
-std::vector<int> FindPath(
+inline std::vector<int> FindPath(
     std::vector<int> start,
     std::vector<int> end,
     std::vector<int> &world_map,
