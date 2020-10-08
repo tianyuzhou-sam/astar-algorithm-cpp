@@ -18,6 +18,62 @@
 #include "MapInfo.h"
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include "get_combination.h"
+#include "find_path.h"
+
+
+inline std::vector<std::vector<int>> FindPathAll(
+	std::vector<int> agent_position,
+	std::vector<int> targets_position,
+    std::vector<int> &world_map,
+    int &map_width,
+    int &map_height)
+{
+	struct MapInfo Map;
+	Map.world_map = world_map;
+	Map.map_width = map_width;
+	Map.map_height = map_height;
+
+    int num_targets = targets_position.size()/2;
+    std::vector<int> start_goal_pair = get_combination(num_targets+1, 2);
+    std::vector<std::vector<int>> path_all; 
+
+    for (unsigned long idx = 0; idx < start_goal_pair.size(); idx = idx + 2)
+    {
+        int start_idx = start_goal_pair[idx];
+        int goal_idx = start_goal_pair[idx+1];
+
+        int start[2];
+        int goal[2];
+
+        if (start_idx != 0)
+        {
+            start[0] = targets_position[2*(start_idx-1)];
+            start[1] = targets_position[2*(start_idx-1)+1];
+        }
+        else
+        {
+            start[0] = agent_position[0];
+            start[1] = agent_position[1];
+        }
+
+        if (goal_idx != 0)
+        {
+            goal[0] = targets_position[2*(goal_idx-1)];
+            goal[1] = targets_position[2*(goal_idx-1)+1];
+
+        }
+        else
+        {
+            goal[0] = agent_position[0];
+            goal[1] = agent_position[1];
+        }
+        std::vector<int> path_short_single = find_path(start, goal, Map);
+        path_all.push_back(path_short_single);
+    }
+
+    return path_all;
+}
 
 
 inline std::vector<int> FindPath(
@@ -140,7 +196,6 @@ inline std::vector<int> FindPath(
 	}
 
 	return path_short;
-
 }
 
 
@@ -148,4 +203,5 @@ PYBIND11_MODULE(AStarPython, module) {
     module.doc() = "Python wrapper of AStar c++ implementation";
 
     module.def("FindPath", &FindPath, "Find a collision-free path");
+	module.def("FindPathAll", &FindPathAll, "Find all the collision-free paths");
 }

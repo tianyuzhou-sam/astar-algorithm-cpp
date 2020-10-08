@@ -1,7 +1,7 @@
 astar-algorithm-cpp
 ===================
 
-This is a customized version of [astar-algorithm-cpp](https://github.com/justinhj/astar-algorithm-cpp). Given a map and a set of starts and goals, this algorithm can return an optimal path. This repo has very easy-to-build-and-use **C++** implementation and **Python** wrapper. I will be exploring the possibilities of application on multi-agent systems by CUDA parallel computing.
+This is a customized version of [astar-algorithm-cpp](https://github.com/justinhj/astar-algorithm-cpp). Given a map and a set of starts and goals, this algorithm can return an optimal path. This repo has very easy-to-build-and-use **C++** implementation and **Python** wrapper.
 
 The following contents starting from **Summary** have been revised such that they fit this forked repo. I really appreciate all the contributors' effort such that I can use this C++ implement of A* algorithm!
 
@@ -33,10 +33,10 @@ $ make
 Usage
 =====
 
-For C++, the main function is `src/main.cpp`.
+For C++, the main function is `src/main_sing_path.cpp`.
 ```
 $ cd <MAIN_DIRECTORY>
-$ build/main
+$ build/main_single
 ```
 
 For Python, the main function is `test/test_AStarPython.py`.
