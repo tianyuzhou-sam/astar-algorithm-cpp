@@ -32,12 +32,16 @@ if __name__ == "__main__":
     end = [15, 15]
     # solve it
     t0 = time.time()
-    path_short = AStarPython.FindPath(start, end, world_map, Simulator.map_width, Simulator.map_height)
+    path_short, steps_used = AStarPython.FindPath(start, end, world_map, Simulator.map_width, Simulator.map_height)
     t1 = time.time()
-    # print("Time used for a single path is [sec]:")
-    # print(t1-t0)
+    print("Time used for a single path is [sec]:")
+    print(t1-t0)
+    print("This is the path. " + "Steps used:" + str(steps_used))
+    for idx in range(0,len(path_short),2):
+        str_print = str(path_short[idx]) + ', ' + str(path_short[idx+1])
+        print(str_print)
     # visualization (uncomment next line if you want to visualize a single path)
-    # Simulator.plot_single_path(path_short)
+    Simulator.plot_single_path(path_short)
 
 
     # This is for an agent and a set of targets
@@ -45,14 +49,14 @@ if __name__ == "__main__":
     targets_position = [35,35, 10,38, 30,6, 25,29]
     # solve it
     t0 = time.time()
-    path_many = AStarPython.FindPathAll(agent_position, targets_position, world_map, Simulator.map_width, Simulator.map_height)
+    path_many, steps_all = AStarPython.FindPathAll(agent_position, targets_position, world_map, Simulator.map_width, Simulator.map_height)
     t1 = time.time()
     print("Time used for many paths is [sec]:")
     print(t1-t0)
 
     print("These are all the paths:")
     for i in range(0,len(path_many),1):
-        print("This is a path:")
+        print("This is a path. " + "Steps used:" + str(steps_all[i]))
         for j in range(0,len(path_many[i]),2):
             str_print = str(path_many[i][j]) + ', ' + str(path_many[i][j+1])
             print(str_print)

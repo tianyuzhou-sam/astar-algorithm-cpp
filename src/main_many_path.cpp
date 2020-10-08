@@ -54,11 +54,11 @@ int main()
     int agent_position[2] = {0, 0}; // Define the position for the agent
     std::vector<int> targets_position{0,19, 19,19, 19,0}; // Define a set of targets positions [x0,y0, x1,y1, x2,y2]
 
-    std::vector<std::vector<int>> path_all = find_path_all(agent_position, targets_position, Map);
+    auto [path_all, steps_all] = find_path_all(agent_position, targets_position, Map);
 
 	for(long unsigned int i=0; i<path_all.size(); i++)
     {
-        std::cout << "This is a path, idx:" << i << std::endl;
+        std::cout << "This is a path, idx = " << i  << ". Steps used:" << steps_all[i] << std::endl;
         if (path_all[i].size() > 0)
         {
             for (long unsigned int j=0; j<path_all[i].size(); j = j + 2)

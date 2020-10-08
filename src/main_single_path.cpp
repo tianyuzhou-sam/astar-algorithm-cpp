@@ -53,9 +53,9 @@ int main()
     int start[2] = {0, 0}; // Create a start state
     int end[2] = {18, 14}; // Define the goal state
 
-    std::vector<int> path_short = find_path(start, end, Map);
+    auto [path_short, steps_used] = find_path(start, end, Map);
 
-	std::cout << "This is the short path:" << std::endl;
+	std::cout << "This is the short path. Steps used:" << steps_used << std::endl;
 	for(long unsigned int i=0; i<path_short.size(); i=i+2)
   		std::cout << path_short[i] << "," << path_short[i+1] << std::endl;
 

@@ -13,19 +13,21 @@
 
 #include <iostream>
 #include <vector>
+#include <tuple>
 #include "MapInfo.h"
 #include "find_path.h"
 #include "get_combination.h"
 
 
-inline std::vector<std::vector<int>> find_path_all(
+inline std::tuple<std::vector<std::vector<int>>, std::vector<int>> find_path_all(
 	int *agent_position,
 	std::vector<int> targets_position,
 	const MapInfo &Map)
 {
     int num_targets = targets_position.size()/2;
     std::vector<int> start_goal_pair = get_combination(num_targets+1, 2);
-    std::vector<std::vector<int>> path_all; 
+    std::vector<std::vector<int>> path_all;
+    std::vector<int> steps_used;
 
     for (unsigned long idx = 0; idx < start_goal_pair.size(); idx = idx + 2)
     {
@@ -57,11 +59,12 @@ inline std::vector<std::vector<int>> find_path_all(
             goal[0] = agent_position[0];
             goal[1] = agent_position[1];
         }
-        std::vector<int> path_short_single = find_path(start, goal, Map);
+        auto [path_short_single, steps] = find_path(start, goal, Map);
         path_all.push_back(path_short_single);
+        steps_used.push_back(steps);
     }
 
-    return path_all;
+    return {path_all, steps_used};
 }
 
 

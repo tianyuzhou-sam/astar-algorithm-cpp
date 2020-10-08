@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <vector>
+#include <tuple>
 #include <stdio.h>
 #include <math.h>
 #include "stlastar.h"
@@ -22,7 +23,7 @@
 #define DEBUG_LIST_LENGTHS_ONLY 0
 
 
-inline std::vector<int> find_path(
+inline std::tuple<std::vector<int>, int> find_path(
 	int *start,
 	int *end,
 	const MapInfo &Map)
@@ -48,8 +49,8 @@ inline std::vector<int> find_path(
 	std::vector<int> path_full;
 	// a short path only contains path corners
 	std::vector<int> path_short;
-	// 2D vector, the first entry is the full path; the second entry is the short path.
-	// std::vector<std::vector<int>> result;
+	// how many steps used for this path
+	int steps = 0;
 
 	while(SearchCount < NumSearches)
 	{
@@ -116,7 +117,7 @@ inline std::vector<int> find_path(
 			std::cout << "Displaying solution\n";
 	#endif
 
-			int steps = 0;
+			steps = 0;
 
 			// node->PrintNodeInfo();
 			path_full.push_back(node->x);
@@ -180,8 +181,8 @@ inline std::vector<int> find_path(
 
 	}
 
-	return path_short;
-	// return path_full;
+	return {path_short, steps};
+	// return {path_full, steps};
 }
 
 

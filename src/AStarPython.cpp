@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <tuple>
 #include <stdio.h>
 #include <math.h>
 #include "stlastar.h"
@@ -22,7 +23,8 @@
 #include "find_path.h"
 
 
-inline std::vector<std::vector<int>> FindPathAll(
+// inline std::vector<std::vector<int>> FindPathAll(
+inline std::tuple<std::vector<std::vector<int>>, std::vector<int>> FindPathAll(
 	std::vector<int> agent_position,
 	std::vector<int> targets_position,
     std::vector<int> &world_map,
@@ -36,7 +38,8 @@ inline std::vector<std::vector<int>> FindPathAll(
 
     int num_targets = targets_position.size()/2;
     std::vector<int> start_goal_pair = get_combination(num_targets+1, 2);
-    std::vector<std::vector<int>> path_all; 
+    std::vector<std::vector<int>> path_all;
+	std::vector<int> steps_all;
 
     for (unsigned long idx = 0; idx < start_goal_pair.size(); idx = idx + 2)
     {
@@ -68,15 +71,17 @@ inline std::vector<std::vector<int>> FindPathAll(
             goal[0] = agent_position[0];
             goal[1] = agent_position[1];
         }
-        std::vector<int> path_short_single = find_path(start, goal, Map);
+        auto [path_short_single, steps_used] = find_path(start, goal, Map);
         path_all.push_back(path_short_single);
+		steps_all.push_back(steps_used);
     }
 
-    return path_all;
+    // return path_all;
+	return {path_all, steps_all};
 }
 
 
-inline std::vector<int> FindPath(
+inline std::tuple<std::vector<int>, int> FindPath(
 	std::vector<int> &start,
 	std::vector<int> &end,
     std::vector<int> &world_map,
@@ -108,6 +113,8 @@ inline std::vector<int> FindPath(
 	std::vector<int> path_full;
 	// a short path only contains path corners
 	std::vector<int> path_short;
+	// how many steps used
+	int steps = 0;
 
 	while(SearchCount < NumSearches)
 	{
@@ -132,7 +139,7 @@ inline std::vector<int> FindPath(
 		{
 			// std::cout << "Search found goal state\n";
 			MapSearchNode *node = astarsearch.GetSolutionStart();
-			int steps = 0;
+			steps = 0;
 
 			// node->PrintNodeInfo();
 			path_full.push_back(node->x);
@@ -195,7 +202,7 @@ inline std::vector<int> FindPath(
 
 	}
 
-	return path_short;
+	return {path_short, steps};
 }
 
 
