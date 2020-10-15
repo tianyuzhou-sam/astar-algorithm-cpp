@@ -33,16 +33,22 @@ $ make
 Usage
 =====
 
-For C++, the main function is `src/main_sing_path.cpp`.
+For C++, the main file is `src/main_sing_path.cpp`.
 ```
 $ cd <MAIN_DIRECTORY>
 $ build/main_single
 ```
 
-For Python, the main function is `test/test_AStarPython.py`.
+For Python, the main file is `test/test_AStarPython.py`.
 ```
 $ cd <MAIN_DIRECTORY>
 $ python3 test/test_AStarPython.py
+```
+
+Or try `test/solve_plot.py`.
+```
+$ cd <MAIN_DIRECTORY>
+$ python3 test/solve_plot.py
 ```
 
 =========================================================================================
