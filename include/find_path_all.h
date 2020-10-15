@@ -20,9 +20,9 @@
 
 
 inline std::tuple<std::vector<std::vector<int>>, std::vector<int>> find_path_all(
-	int *agent_position,
-	std::vector<int> targets_position,
-	const MapInfo &Map)
+    int *agent_position,
+    std::vector<int> targets_position,
+    const MapInfo &Map)
 {
     int num_targets = targets_position.size()/2;
     std::vector<int> start_goal_pair = get_combination(num_targets+1, 2);
