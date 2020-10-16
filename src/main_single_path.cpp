@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include "MapInfo.h"
 #include "find_path.h"
 
@@ -53,7 +54,15 @@ int main()
     int start[2] = {0, 0}; // Create a start state
     int end[2] = {18, 14}; // Define the goal state
 
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+
     auto [path_short, steps_used] = find_path(start, end, Map);
+
+
+    auto stop_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop_time - start_time);
+    std::cout << "Time used [microseconds]:" << duration.count() << std::endl;
 
     std::cout << "This is the short path. Steps used:" << steps_used << std::endl;
     for(long unsigned int i=0; i<path_short.size(); i=i+2)

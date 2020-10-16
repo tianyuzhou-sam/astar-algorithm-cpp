@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <vector>
+#include <chrono>
 #include "MapInfo.h"
 #include "find_path.h"
 #include "find_path_all.h"
@@ -54,7 +55,16 @@ int main()
     int agent_position[2] = {0, 0}; // Define the position for the agent
     std::vector<int> targets_position{0,19, 19,19, 19,0}; // Define a set of targets positions [x0,y0, x1,y1, x2,y2]
 
+    auto start_time = std::chrono::high_resolution_clock::now();
+
+
     auto [path_all, steps_all] = find_path_all(agent_position, targets_position, Map);
+
+
+    auto stop_time = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop_time - start_time);
+    std::cout << "Time used [microseconds]:" << duration.count() << std::endl;
+
 
     for(long unsigned int i=0; i<path_all.size(); i++)
     {

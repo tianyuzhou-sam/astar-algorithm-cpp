@@ -15,12 +15,15 @@ Dependencies
 ============
 For Python:
 * [pybind11](https://github.com/pybind/pybind11) If you only install `pybind11` by `pip`, it's possible that CMake can't find it. But you can install it by `apt` or `brew`.
+* [numpy](https://numpy.org/).
+* [matplotlib](https://matplotlib.org/).
 
 
 Build
 =====
 ```
 $ apt-get install pybind11 # For macOS: brew install pybind11
+$ pip3 install numpy matplotlib
 $ git clone https://github.com/zehuilu/astar-algorithm-cpp.git
 $ cd <MAIN_DIRECTORY>
 $ mkdir build
@@ -51,6 +54,57 @@ $ cd <MAIN_DIRECTORY>
 $ python3 test/solve_plot.py
 ```
 
+
+Example
+=======
+
+**Python**
+
+To call the A Star solver in Python, a simple example is shown below. More details are in `test/solve_plot.py` and `test/test_AStarPython.py`.
+
+```python
+import AStarPython
+map_width = 20
+map_height = 20
+# world_map is a 1D list (row-major), 1 means no obstacles, 9 means blocked by obstacles
+start = [0, 0] # coordinates for start
+goal = [35, 18] # coordinates for goal
+# solve it
+path_short, steps_used = AStarPython.FindPath(start, end, world_map, Simulator.map_width, Simulator.map_height)
+```
+
+Run `test/solve_plot.py`, the result is shown below. Time used is 2.183 ms.
+![single path](doc/single_path.png?raw=true "Single Path")
+
+
+**C++**
+
+To call the A Star solver in C++, a simple example is shown below. More details are in `src/main_single_path.cpp`.
+
+```c++
+// ignore all the headers, see more details in src/main_single_path.cpp
+int map_width = 20;
+int map_height = 20;
+int start[2] = {0, 0}; // Create a start state
+int end[2] = {18, 14}; // Define the goal state
+struct MapInfo Map;
+Map.world_map = world_map;
+Map.map_width = map_width;
+Map.map_height = map_height;
+// world_map is a std::vector<int>, 1 means no obstacles, 9 means blocked by obstacles
+// solve it
+auto [path_short, steps_used] = find_path(start, end, Map);
+```
+
+Run `src/main_single_path.cpp`, the path result is shown on the console. Time used is 0.135 ms.
+```
+This is the short path. Steps used:34
+0,0
+19,0
+19,10
+18,10
+18,14
+```
 =========================================================================================
 
 

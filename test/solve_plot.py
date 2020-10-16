@@ -7,7 +7,6 @@ import AStarPython
 import numpy as np
 import time
 import matplotlib.pyplot as plt
-from dataclasses import dataclass
 
 import Simulator as helper
 
@@ -15,21 +14,25 @@ import Simulator as helper
 if __name__ == "__main__":
     # define the world
     map_width_meter = 20.0
-    map_width_meter = 20.0
+    map_height_meter = 20.0
     map_resolution = 2
+    value_non_obs = 1 # the cell is empty
+    value_obs = 9 # the cell is blocked
     # create a simulator
-    Simulator = helper.Simulator(map_width_meter, map_width_meter, map_resolution)
+    Simulator = helper.Simulator(map_width_meter, map_height_meter, map_resolution, value_non_obs, value_obs)
     # number of obstacles
     num_obs = 100
+    # [width, length] size of each obstacle [meter]
+    size_obs = [1, 1]
     # generate random obstacles
-    Simulator.generate_random_obs(num_obs)
+    Simulator.generate_random_obs(num_obs, size_obs)
     # convert 2D numpy array to 1D list
     world_map = Simulator.map_array.flatten().tolist()
 
 
     # define the start and goal
     start = [0, 0]
-    end = [15, 15]
+    end = [35, 18]
     # solve it
     t0 = time.time()
     path_short, steps_used = AStarPython.FindPath(start, end, world_map, Simulator.map_width, Simulator.map_height)
@@ -60,6 +63,5 @@ if __name__ == "__main__":
         for j in range(0,len(path_many[i]),2):
             str_print = str(path_many[i][j]) + ', ' + str(path_many[i][j+1])
             print(str_print)
-
     # visualization
     Simulator.plot_many_path(path_many, agent_position, targets_position)
