@@ -1,12 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// STL A* Search implementation
-// (C)2001 Justin Heyes-Jones
-//
-// Finding a path on a simple grid maze
-// This shows how to do shortest path finding using A*
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 #ifndef FIND_PATH_ALL_H
 #define FIND_PATH_ALL_H
 
@@ -28,14 +19,13 @@ inline std::tuple<std::vector<std::vector<int>>, std::vector<int>> find_path_all
     std::vector<int> start_goal_pair = get_combination(num_targets+1, 2);
     std::vector<std::vector<int>> path_all;
     std::vector<int> steps_used;
+    int start[2];
+    int goal[2];
 
     for (unsigned long idx = 0; idx < start_goal_pair.size(); idx = idx + 2)
     {
         int start_idx = start_goal_pair[idx];
         int goal_idx = start_goal_pair[idx+1];
-
-        int start[2];
-        int goal[2];
 
         if (start_idx != 0)
         {
