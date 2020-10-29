@@ -31,8 +31,8 @@ if __name__ == "__main__":
 
 
     # define the start and goal
-    start = [0, 0]
-    end = [35, 18]
+    num_targets = 1
+    start, end = Simulator.generate_start_and_goals(num_targets)
     # solve it
     t0 = time.time()
     path_short, steps_used = AStarPython.FindPath(start, end, world_map, Simulator.map_width, Simulator.map_height)
@@ -48,8 +48,8 @@ if __name__ == "__main__":
 
 
     # This is for an agent and a set of targets
-    agent_position = [0, 0]
-    targets_position = [35,35, 10,38, 30,6, 25,29]
+    num_targets = 4
+    agent_position, targets_position = Simulator.generate_start_and_goals(num_targets)
     # solve it
     t0 = time.time()
     path_many, steps_all = AStarPython.FindPathAll(agent_position, targets_position, world_map, Simulator.map_width, Simulator.map_height)
