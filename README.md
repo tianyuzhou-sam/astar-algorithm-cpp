@@ -8,6 +8,7 @@ The following contents starting from **Summary** have been revised such that the
 Zehui
 
 This repo has been tested with:
+* GCC 10.2.0, CMake 3.16.3, Ubuntu 20.04.2 LTS
 * GCC 9.3.0, CMake 3.16.3, Ubuntu 20.04.1 LTS
 * Clang 12.0.0.0, CMake 3.18.3, macOS 10.15.7
 
@@ -22,7 +23,8 @@ For Python:
 Build
 =====
 ```
-$ apt-get install pybind11 # For macOS: brew install pybind11
+$ sudo apt install gcc g++ cmake
+$ sudo apt install python3-pybind11 # For macOS: brew install pybind11
 $ pip3 install numpy matplotlib
 $ git clone https://github.com/zehuilu/astar-algorithm-cpp.git
 $ cd <MAIN_DIRECTORY>
