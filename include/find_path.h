@@ -113,8 +113,6 @@ inline std::tuple<std::vector<int>, int> find_path(
             // node->PrintNodeInfo();
             path_full.push_back(node->x);
             path_full.push_back(node->y);
-            path_short.push_back(node->x);
-            path_short.push_back(node->y);
 
             while (true)
             {
@@ -135,11 +133,13 @@ inline std::tuple<std::vector<int>, int> find_path(
                 Let's say there are 3 steps, x0, x1, x2. To verify whether x1 is a corner for the path.
                 If the coordinates of x0 and x1 at least have 1 component same, and the coordinates of 
                 x0 and x2 don't have any components same, then x1 is a corner.
-                If the path only contains 3 steps or less, path_full = path_short.
+
+                Always append the second path point to path_full.
+                When steps >= 2 (starting from the third point), append the point if it's a corner.
                 */
 
-                if (((path_full[2*steps-4]==path_full[2*steps-2]) || (path_full[2*steps-3]==path_full[2*steps-1])) && 
-                    ((path_full[2*steps-4]!=node->x) && (path_full[2*steps-3]!=node->y)) && (steps>2))
+                if ((((path_full[2*steps-4]==path_full[2*steps-2]) || (path_full[2*steps-3]==path_full[2*steps-1])) && 
+                    ((path_full[2*steps-4]!=node->x) && (path_full[2*steps-3]!=node->y)) && (steps>=2)) || (steps < 2))
                 {
                     path_short.push_back(path_full[2*steps-2]);
                     path_short.push_back(path_full[2*steps-1]);
@@ -173,7 +173,6 @@ inline std::tuple<std::vector<int>, int> find_path(
     }
 
     return {path_short, steps};
-    // return {path_full, steps};
 }
 
 
