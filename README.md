@@ -68,7 +68,7 @@ To call the A Star solver in Python, a simple example is shown below. More detai
 import AStarPython
 map_width = 20
 map_height = 20
-# world_map is a 1D list (row-major), 1 means no obstacles, 9 means blocked by obstacles
+# world_map is a 1D list (row-major), 0 means no obstacles, 255 means blocked by obstacles
 start = [0, 0] # coordinates for start
 goal = [35, 18] # coordinates for goal
 # solve it
@@ -93,7 +93,7 @@ struct MapInfo Map;
 Map.world_map = world_map;
 Map.map_width = map_width;
 Map.map_height = map_height;
-// world_map is a std::vector<int>, 1 means no obstacles, 9 means blocked by obstacles
+// world_map is a std::vector<int>, 0 means no obstacles, 255 means blocked by obstacles
 // solve it
 auto [path_short, steps_used] = find_path(start, end, Map);
 ```

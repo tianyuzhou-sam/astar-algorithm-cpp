@@ -33,6 +33,13 @@ int main()
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,   // 19
     };
 
+    for (size_t idx = 0; idx < world_map.size(); ++idx) {
+        if (world_map[idx] == 9)
+            world_map[idx] = 255;
+        else
+            world_map[idx] = 0;
+    }
+
     int map_width = 20;
     int map_height = 20;
     struct MapInfo Map;

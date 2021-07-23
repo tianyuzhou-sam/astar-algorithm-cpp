@@ -26,7 +26,7 @@ inline std::tuple<std::vector<int>, int> find_path(
     // Each element contains an integer from 0 to 5 which indicates the cost 
     // of travel across the terrain. Zero means the least possible difficulty 
     // in travelling (think ice rink if you can skate) whilst 5 represents the 
-    // most difficult. 9 indicates that we cannot pass.
+    // most difficult. 255 indicates that we cannot pass.
 
     // Create an instance of the search class...
 

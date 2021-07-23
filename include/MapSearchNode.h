@@ -108,7 +108,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
 
     // push each possible move except allowing the search to go backwards
 
-    if( (GetMap( x-1, y ) < 9) 
+    if( (GetMap( x-1, y ) < 255) 
         && !((parent_x == x-1) && (parent_y == y))
         ) 
     {
@@ -116,7 +116,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
         astarsearch->AddSuccessor( NewNode );
     }	
 
-    if( (GetMap( x, y-1 ) < 9) 
+    if( (GetMap( x, y-1 ) < 255) 
         && !((parent_x == x) && (parent_y == y-1))
         ) 
     {
@@ -124,7 +124,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
         astarsearch->AddSuccessor( NewNode );
     }	
 
-    if( (GetMap( x+1, y ) < 9)
+    if( (GetMap( x+1, y ) < 255)
         && !((parent_x == x+1) && (parent_y == y))
         ) 
     {
@@ -133,7 +133,7 @@ bool MapSearchNode::GetSuccessors( AStarSearch<MapSearchNode> *astarsearch, MapS
     }	
 
         
-    if( (GetMap( x, y+1 ) < 9) 
+    if( (GetMap( x, y+1 ) < 255) 
         && !((parent_x == x) && (parent_y == y+1))
         )
     {
@@ -163,7 +163,7 @@ inline int MapSearchNode::GetMap(int x, int y)
             y >= map.map_height
         )
     {
-        return 9;	 
+        return 255;	 
     }
 
     return map.world_map[(y*map.map_width)+x];

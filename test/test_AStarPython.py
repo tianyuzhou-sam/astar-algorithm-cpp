@@ -35,6 +35,13 @@ if __name__ == "__main__":
         1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1    # 19
     ]
 
+    # for AStarPython, 0 for no obstacles; 255 for obstacles
+    for idx in range(len(world_map)):
+        if world_map[idx] == 9:
+            world_map[idx] = 255
+        else:
+            world_map[idx] = 0
+
     # define the start and goal
     start = [0, 0]
     end = [14, 10]

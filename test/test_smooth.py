@@ -20,7 +20,7 @@ if __name__ == "__main__":
     # create a simulator
     MySimulator = Simulator(map_width_meter, map_height_meter, map_resolution, value_non_obs, value_obs)
     # number of obstacles
-    num_obs = 150
+    num_obs = 100
     # [width, length] size of each obstacle [meter]
     size_obs = [1, 1]
     # generate random obstacles
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     start, end = MySimulator.generate_start_and_goals(num_targets)
     # solve it
     t0 = time.time()
-    path_short, steps_used = AStarPython.FindPath(start, end, world_map, MySimulator.map_width, MySimulator.map_height)
+    path_short, path_smooth, steps_used = AStarPython.FindPath_test(start, end, world_map, MySimulator.map_width, MySimulator.map_height)
     t1 = time.time()
     print("Time used for a single path is [sec]:")
     print(t1-t0)
@@ -41,25 +41,33 @@ if __name__ == "__main__":
     for idx in range(0,len(path_short),2):
         str_print = str(path_short[idx]) + ', ' + str(path_short[idx+1])
         print(str_print)
+
+    print("This is the smooth path.")
+    print("len(path_smooth)")
+    print(len(path_smooth))
+    for idx in range(0,len(path_smooth),2):
+        str_print = str(path_smooth[idx]) + ', ' + str(path_smooth[idx+1])
+        print(str_print)
     # visualization (uncomment next line if you want to visualize a single path)
     MySimulator.plot_single_path(path_short)
+    MySimulator.plot_single_path(path_smooth)
 
-    # This is for an agent and a set of targets
-    num_targets = 4
-    agent_position, targets_position = MySimulator.generate_start_and_goals(num_targets)
-    # solve it
-    t0 = time.time()
-    path_many, steps_all = AStarPython.FindPathAll(agent_position, targets_position, world_map, MySimulator.map_width, MySimulator.map_height)
-    t1 = time.time()
-    print("Time used for many paths is [sec]:")
-    print(t1-t0)
+    # # This is for an agent and a set of targets
+    # num_targets = 4
+    # agent_position, targets_position = MySimulator.generate_start_and_goals(num_targets)
+    # # solve it
+    # t0 = time.time()
+    # path_many, steps_all = AStarPython.FindPathAll(agent_position, targets_position, world_map, MySimulator.map_width, MySimulator.map_height)
+    # t1 = time.time()
+    # print("Time used for many paths is [sec]:")
+    # print(t1-t0)
 
-    print("These are all the paths:")
-    for i in range(0,len(path_many),1):
-        print("This is a path. " + "Steps used:" + str(steps_all[i]))
-        for j in range(0,len(path_many[i]),2):
-            str_print = str(path_many[i][j]) + ', ' + str(path_many[i][j+1])
-            print(str_print)
-    # visualization
-    MySimulator.plot_many_path(path_many, agent_position, targets_position)
+    # print("These are all the paths:")
+    # for i in range(0,len(path_many),1):
+    #     print("This is a path. " + "Steps used:" + str(steps_all[i]))
+    #     for j in range(0,len(path_many[i]),2):
+    #         str_print = str(path_many[i][j]) + ', ' + str(path_many[i][j+1])
+    #         print(str_print)
+    # # visualization
+    # MySimulator.plot_many_path(path_many, agent_position, targets_position)
     plt.show()
