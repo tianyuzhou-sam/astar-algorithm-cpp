@@ -322,7 +322,7 @@ inline std::tuple<std::vector<int>, std::vector<int>, int> FindPath_test(
     std::vector<int> path_output = smooth_path(path_short, Map);
     auto t_stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::microseconds>(t_stop - t_start);
-    std::cout << "smooth path time [ms]: " << duration.count() << std::endl;
+    std::cout << "smooth path time [microseconds]: " << duration.count() << std::endl;
 
     // return {path_short, steps};
     return {path_short, path_output, steps};
